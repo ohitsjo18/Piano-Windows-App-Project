@@ -218,13 +218,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 		int posx = GET_X_LPARAM(lParam);
 		int posy = GET_Y_LPARAM(lParam);
 
-		// Display a message box on mouse click detected 
-		//int msgBoxID = MessageBox(
-		//	hWnd,
-		//	(LPCWSTR)L"LMB Click Detected",
-		//	(LPCWSTR)L"Message Box Test",
-		//	MB_OK);
-
 		// Print coordinates to the console (test: TODO delete) 
 		string xstr = to_string(posx);
 		string ystr = to_string(posy);
@@ -233,25 +226,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 		LPCWSTR coords_string = stemp.c_str();
 		OutputDebugStringW(coords_string);
 
-		// Detect if mouse click is in key regions:  
+		// Arrays of sound file locations 
 		LPCWSTR whiteNotes[8];
 		LPCWSTR blackNotes[5];
 
-		whiteNotes[0] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.C4.wav";
-		whiteNotes[1] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.D4.wav";
-		whiteNotes[2] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.E4.wav";
-		whiteNotes[3] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.F4.wav";
-		whiteNotes[4] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.G4.wav";
-		whiteNotes[5] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.A4.wav";
-		whiteNotes[6] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.B4.wav";
-		whiteNotes[7] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.C5.wav";
+		// Specify location of sound files in system: 
+		whiteNotes[0] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		whiteNotes[1] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		whiteNotes[2] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		whiteNotes[3] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		whiteNotes[4] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		whiteNotes[5] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		whiteNotes[6] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		whiteNotes[7] = (LPCWSTR)L"<wav_file_location_in_local_system>";
 
-		blackNotes[0] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.Db4.wav";
-		blackNotes[1] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.Eb4.wav";
-		blackNotes[2] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.Gb4.wav";
-		blackNotes[3] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.Ab4.wav";
-		blackNotes[4] = (LPCWSTR)L"C:\\Users\\CStriker\\Documents\\C++ Projects Master Folder\\Piano Windows App Project\\Source Files\\Piano Sound Files\\WAV Files\\Piano.mf.Bb4.wav";
+		blackNotes[0] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		blackNotes[1] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		blackNotes[2] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		blackNotes[3] = (LPCWSTR)L"<wav_file_location_in_local_system>";
+		blackNotes[4] = (LPCWSTR)L"<wav_file_location_in_local_system>";
 
+		// Detect mouse clicks in regions and play appropriate sounds
 		for (int i = 0; i < 8; i++)
 		{
 			if ((i < 5) && PtInRegion(blackKeysRgnArray[i], posx, posy))
