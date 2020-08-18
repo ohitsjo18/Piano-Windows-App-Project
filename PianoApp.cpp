@@ -9,12 +9,9 @@
 #include <stdio.h>
 #include <iostream>
 
-// Hi 
-
 using namespace Gdiplus;
 using namespace std;
 #pragma comment (lib,"Gdiplus.lib")
-
 
 // Global variables 
 HRGN whiteKeysRgnArray[8];
@@ -23,8 +20,10 @@ HRGN blackKeysRgnArray[5];
 #define WM_LBUTTONDOWN 0x0201
 
 //----------------- HELPER METHODS ---------------------------------------------------------------
-// Helper method for conversion from string to LPCWSTR
+
+// Helper method for conversion from string to LPCWSTR type 
 // Ref: https://stackoverflow.com/questions/27220/how-to-convert-stdstring-to-lpcwstr-in-c-unicode
+// *** Unused except for testing purposes - delete when project complete ***
 std::wstring s2ws(const std::string& s)
 {
 	int len;
@@ -37,17 +36,19 @@ std::wstring s2ws(const std::string& s)
 	return r;
 }
 
-//--------------- START OF APPLICATION CODE -----------------------------------------------------
+//--------------- START OF APPLICATION CODE ------------------------------------------------------
 
-// OnPaint fn for draw white keys: 
+// Function OnPaint()
+// Function: paint graphics on client window 
+// Description: enacts the drawing of objects in the client window 
+// Parameters: hdc - handler to device context associated with Graphics objects 
+// Return: No return specified (called continuously as part of WindProc() 
+// Reference: https://docs.microsoft.com/en-us/windows/win32/gdiplus/-gdiplus-drawing-a-string-use
 VOID OnPaint(HDC hdc)
 {
+	// Instantiate required graphics objects for drawing 
 	Graphics graphics(hdc);
-
-	// Create a pen object: 
 	Pen pen(Color(255, 0, 0, 0), 3);
-
-	// Create a SolidBrush objects: (for filling shape) 
 	SolidBrush whiteKeyBrush(Color(255, 255, 255, 255));
 	SolidBrush blackKeyBrush(Color(255, 0, 0, 0));
 
@@ -60,11 +61,11 @@ VOID OnPaint(HDC hdc)
 	float rectHeight = 200.0f;
 	// Create array of 5 RectF objects (black keys) 
 	RectF blackKeysRectArray[5];
-	// Populate array of coordinates manually (not uniform) 
-	float blackKey0_x1 = 175.0f;
-	float blackKey0_y1 = 100.0f;
-	float blackKey0_width;
-	float blackKey0_height;
+	// Dimensions and position of black keys: 
+	float blackKey_offset = 75.0f; // position of black keys relative to white keys
+	float blackKey_depth = 100.0f;
+	float blackKey_width = 50.0f; 
+	float blackKey_height = 100.0f; 
 
 	// Black keys array counter 
 	int blackKeyCounter = 0;
@@ -74,33 +75,36 @@ VOID OnPaint(HDC hdc)
 	{
 		// Populate rectangle and region arrays of WHITE keys: 
 		whiteKeysRectArray[i] = RectF(rectx1, recty1, rectWidth, rectHeight);
-		whiteKeysRgnArray[i] = CreateRectRgn((int)whiteKeysRectArray[i].GetLeft(), (int)whiteKeysRectArray[i].GetTop(),
-			(int)whiteKeysRectArray[i].GetRight(), (int)whiteKeysRectArray[i].GetBottom());
+		whiteKeysRgnArray[i] = CreateRectRgn((int)whiteKeysRectArray[i].GetLeft(), 
+			(int)whiteKeysRectArray[i].GetTop(),(int)whiteKeysRectArray[i].GetRight(), 
+			(int)whiteKeysRectArray[i].GetBottom());
 
 		// Draw white key 
 		graphics.DrawRectangle(&pen, whiteKeysRectArray[i]);
 
-		// Fill the white key: 
+		// Fill white key: 
 		graphics.FillRectangle(&whiteKeyBrush, whiteKeysRectArray[i]);
 
-		// Draw black keys relative to white keys: 
-		if ((i != 2) && (i != 6) && (i != 7) && blackKeyCounter < 5) // If black key valid 
+		// Draw black keys relative to white keys (if black key valid): 
+		if ((i != 2) && (i != 6) && (i != 7) && blackKeyCounter < 5)
 		{
-			blackKeysRectArray[blackKeyCounter] = RectF(rectx1 + 75.0f, blackKey0_y1, 50.0f, 100.0f);
-			// Increment counter
+			blackKeysRectArray[blackKeyCounter] = RectF(rectx1 + blackKey_offset, 
+				blackKey_depth, blackKey_width, blackKey_height);
 			blackKeyCounter++;
 		}
 
-		// Update to next rectangle: 
+		// Update to next white rectangle: 
 		rectx1 = rectx1 + 100.0f;
 	}
 
 	// Finally, draw the black rectangles and populate region array: 
+	// (black rectangles and regions must be drawn AFTER white, so they are superimposed) 
 	for (int i = 0; i < 5; i++)
 	{
 		// Black key regions
-		blackKeysRgnArray[i] = CreateRectRgn((int)blackKeysRectArray[i].GetLeft(), (int)blackKeysRectArray[i].GetTop(),
-			(int)blackKeysRectArray[i].GetRight(), (int)blackKeysRectArray[i].GetBottom());
+		blackKeysRgnArray[i] = CreateRectRgn((int)blackKeysRectArray[i].GetLeft(), 
+			(int)blackKeysRectArray[i].GetTop(), (int)blackKeysRectArray[i].GetRight(), 
+			(int)blackKeysRectArray[i].GetBottom());
 
 		// Draw the black key rectangles: 
 		graphics.DrawRectangle(&pen, blackKeysRectArray[i]);
@@ -108,10 +112,17 @@ VOID OnPaint(HDC hdc)
 		// Fill the black key rectangles: 
 		graphics.FillRectangle(&blackKeyBrush, blackKeysRectArray[i]);
 	}
-} // OnPaint End 
+} // OnPaint() End 
 
+// Function declaration for WndProc() 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
+// Function WinMain()
+// Function: *** TODO
+// Description: *** TODO
+// Parameters: *** TODO
+// Return:*** TODO
+// Reference: *** TODO
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
 {
 	HWND                hWnd;
@@ -131,7 +142,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
 	wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
-	wndClass.lpszMenuName = NULL;
+	wndClass.lpszMenuName = NULL; 
 	wndClass.lpszClassName = TEXT("GettingStarted");
 
 	RegisterClass(&wndClass);
@@ -160,8 +171,14 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
 
 	GdiplusShutdown(gdiplusToken);
 	return msg.wParam;
-}  // WinMain End 
+}  // WinMain() End 
 
+// Function WndProc() 
+// Function: *** TODO
+// Description: *** TODO
+// Parameters: *** TODO
+// Return:*** TODO
+// Reference: *** TODO
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 	WPARAM wParam, LPARAM lParam)
 {
@@ -195,7 +212,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 		//	(LPCWSTR)L"Message Box Test",
 		//	MB_OK);
 
-		// Print coordinates to the console (test, TODO delete) 
+		// Print coordinates to the console (test: TODO delete) 
 		string xstr = to_string(posx);
 		string ystr = to_string(posy);
 		string coords = "[x: " + xstr + ", y: " + ystr + "]";
@@ -229,7 +246,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 				PlaySound(blackNotes[i], NULL, SND_SYNC);
 				break;
 			}
-			else if (PtInRegion(whiteKeysRgnArray[i], posx, posy) && PtInRegion(blackKeysRgnArray[i], posx, posy) == FALSE)
+			else if (PtInRegion(whiteKeysRgnArray[i], posx, posy) 
+				&& PtInRegion(blackKeysRgnArray[i], posx, posy) == FALSE)
 			{
 				PlaySound(whiteNotes[i], NULL, SND_SYNC);
 				break;
@@ -240,7 +258,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 	}
 	default:
 	{
-		return DefWindowProc(hWnd, message, wParam, lParam);
+		return DefWindowProc(hWnd, message, wParam, lParam); 
 	}
 	}
 } // WndProc End 
+
+//-------------- END OF APPLICATION CODE ------------------------------------------------------
