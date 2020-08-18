@@ -1,3 +1,21 @@
+﻿/* 
+
+C++ Windows Piano Application Project 
+
+Description: The program below creates a basic windows-based piano application 
+which plays piano note sounds when the appropriate region of the screen ('key') is
+pressed. 
+
+Author: Joanne Nock 
+Date: 18/8/2020
+
+Feel free to use this program for your own projects, but please be aware of the 
+references I have highlighted throughout the code. 
+
+✿ Joanne Nock ✿ MEng Computer Systems Engineering ✿ University of Warwick ✿
+
+*/
+
 #include "stdafx.h"
 #include <windows.h>
 #include <windowsx.h>
@@ -118,11 +136,8 @@ VOID OnPaint(HDC hdc)
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // Function WinMain()
-// Function: *** TODO
-// Description: *** TODO
-// Parameters: *** TODO
-// Return:*** TODO
-// Reference: *** TODO
+// Function: Entry point of windows application program 
+// Reference: https://docs.microsoft.com/en-us/cpp/windows/walkthrough-creating-windows-desktop-applications-cpp?view=vs-2019
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
 {
 	HWND                hWnd;
@@ -149,7 +164,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
 
 	hWnd = CreateWindow(
 		TEXT("GettingStarted"),         // window class name
-		TEXT("Playing with Shapes"),    // window caption
+		TEXT("Windows Piano"),			// window caption
 		WS_OVERLAPPEDWINDOW,            // window style
 		CW_USEDEFAULT,                  // initial x position
 		CW_USEDEFAULT,                  // initial y position
@@ -174,11 +189,9 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
 }  // WinMain() End 
 
 // Function WndProc() 
-// Function: *** TODO
-// Description: *** TODO
-// Parameters: *** TODO
-// Return:*** TODO
-// Reference: *** TODO
+// Function: Window-procedure function for event handling
+// Description: Handles messages that Windows receives when events occur
+// Reference: https://docs.microsoft.com/en-us/cpp/windows/walkthrough-creating-windows-desktop-applications-cpp?view=vs-2019
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 	WPARAM wParam, LPARAM lParam)
 {
