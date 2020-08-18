@@ -60,7 +60,7 @@ std::wstring s2ws(const std::string& s)
 // Function: paint graphics on client window 
 // Description: enacts the drawing of objects in the client window 
 // Parameters: hdc - handler to device context associated with Graphics objects 
-// Return: No return specified (called continuously as part of WindProc() 
+// Return: No return specified (called continuously as part of WindProc() )
 // Reference: https://docs.microsoft.com/en-us/windows/win32/gdiplus/-gdiplus-drawing-a-string-use
 VOID OnPaint(HDC hdc)
 {
