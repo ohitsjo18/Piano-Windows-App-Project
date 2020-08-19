@@ -1,0 +1,3 @@
+Sound files source:  http://theremin.music.uiowa.edu/MISpiano.html
+
+.aiff files coverted to .wav format and cut for the purposes of the application. 

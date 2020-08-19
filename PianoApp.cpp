@@ -269,6 +269,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message,
 		return DefWindowProc(hWnd, message, wParam, lParam); 
 	}
 	}
-} // WndProc End 
+} // WndProc() End 
 
 //-------------- END OF APPLICATION CODE ------------------------------------------------------
