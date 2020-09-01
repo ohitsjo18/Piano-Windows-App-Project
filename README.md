@@ -41,7 +41,5 @@ However, I am a beginner C++ programmer so am very open to advice, suggestions a
 
 MEng Computer Systems Engineering student at the University of Warwick (third year) 
 
-Passionate about health-tech, enviro-tech and making the world a better place one line of code at a time! 
-
 LinkedIn Profile: https://www.linkedin.com/in/joannenock/
 
