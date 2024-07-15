@@ -24,7 +24,7 @@ https://docs.microsoft.com/en-us/cpp/windows/walkthrough-creating-windows-deskto
 2. Create a new project: Select File > New > Project 
 3. Choose the <Windows Desktop Wizard> project type > Click Next 
 4. Enter your project name and create the project 
-5. Under application type, select <Deskptop Application (.exe)>. Select <Empty Project>. Select OK to create the project. 
+5. Under application type, select <Desktop Application (.exe)>. Select <Empty Project>. Select OK to create the project. 
 6. This should open up your new, empty project. In the solution explorer, go to <Source Files> and add PianoApp.cpp as an existing item. 
 7. Add stdafx.h as an empty header file to the project: Go to solution explorer, Source Files > Add New Item > Add header file called stdafx.h 
 8. Download the Piano Sound files provided and save them in a convenient location in your local system. Update PianoApp.cpp with the filepaths to your local sound files. 
